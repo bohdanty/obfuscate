@@ -1,4 +1,4 @@
-#include "ret13.h"
+#include "rot13.h"
 
 #include <stdexcept>
 #include <fstream>
@@ -7,6 +7,29 @@
 #include <sstream>
 #include <sys/time.h>
 #include <sys/resource.h>
+
+std::string read_from_input(std::istream& input) {
+    std::string result;
+    char c;
+
+    while (input.get(c)) {
+        result.push_back(c);
+    }
+
+    return result;
+}
+
+void process_data(std::istream& input, std::ostream& output) {
+    std::string data = read_from_input(input);
+    
+    if (data.length() > 0) {
+        rot13::obfuscate(&data[0], data.length());
+    }
+
+    for (char c : data) {
+        output << c;
+    }
+}
 
 suseconds_t get_time_in_user_mode() {
     std::unique_ptr<rusage> usage = std::make_unique<rusage>();
@@ -29,7 +52,7 @@ int main(int argc, char** argv) {
         throw std::runtime_error(message.str());
     }
 
-    ret13::obfuscate(input, output);
+    process_data(input, output);
 
     input.close();
     output.close();
