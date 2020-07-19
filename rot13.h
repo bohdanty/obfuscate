@@ -1,5 +1,8 @@
 #pragma once
 
+#include <sys/time.h>
+#include <sys/resource.h>
+
 namespace rot13 {
 
 namespace {
@@ -10,6 +13,6 @@ namespace {
     const uint LOWERCASE_OFFSET = static_cast<uint>('a');
 }
 
-extern "C" void obfuscate(char* input, uint length);
+extern "C" suseconds_t obfuscate(const char* input_file, const char* output_file);
 
 }
