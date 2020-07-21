@@ -5,16 +5,14 @@
 #include <sstream>
 #include <memory>
 
-namespace rot13 {
-
-suseconds_t get_time_in_user_mode() {
+long get_time_in_user_mode() {
     std::unique_ptr<rusage> usage = std::make_unique<rusage>();
     getrusage(RUSAGE_SELF, usage.get());
 
     return usage->ru_utime.tv_sec * 1000000 + usage->ru_utime.tv_usec;
 }
 
-suseconds_t obfuscate(const char* input_file, const char* output_file) {
+long obfuscate(const char* input_file, const char* output_file) {
     std::ifstream in(input_file);
 
     if (!in.is_open()) {
@@ -40,6 +38,4 @@ suseconds_t obfuscate(const char* input_file, const char* output_file) {
     out.close();
 
     return get_time_in_user_mode();
-}
-
 }

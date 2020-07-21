@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
         throw std::runtime_error("There should be exactly two parameters");
     }
 
-    auto time = rot13::obfuscate(argv[1], argv[2]);
+    auto time = obfuscate(argv[1], argv[2]);
     std::cout << "Time in the user mode: " << time << std::endl;
 
     return 0;

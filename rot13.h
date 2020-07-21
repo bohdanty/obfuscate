@@ -3,8 +3,6 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 
-namespace rot13 {
-
 namespace {
     typedef unsigned int uint;
     const uint CYPHER_OFFSET = 13;
@@ -13,6 +11,4 @@ namespace {
     const uint LOWERCASE_OFFSET = static_cast<uint>('a');
 }
 
-extern "C" suseconds_t obfuscate(const char* input_file, const char* output_file);
-
-}
+extern "C" long obfuscate(const char* input_file, const char* output_file);
